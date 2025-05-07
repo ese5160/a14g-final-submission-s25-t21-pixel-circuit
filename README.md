@@ -11,6 +11,8 @@
 
 https://youtube.com/shorts/kJqO3oqh_wA
 
+---
+
 ## 2. Project Summary
 
 ### 1. Device Description
@@ -93,6 +95,8 @@ https://youtube.com/shorts/kJqO3oqh_wA
 - **Latency tests** were captured with a Saleae Logic 8 and a UART time‑stamp script.  
 - **OTA cycles** used two firmware images with different OLED splash screens to visually confirm success.  
 - **Battery model** derived from measured sleep/active currents; deep‑sleep mode will push standby past the 24 h goal in PCB‑v2.
+
+---
 
 ## 4. Project Photos & Screenshots
 
