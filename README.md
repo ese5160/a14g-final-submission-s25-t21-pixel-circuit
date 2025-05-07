@@ -4,7 +4,7 @@
     * Team Number: 21
     * Team Name: pixel & circuit
     * Team Members: Zhongyu Wang, Linhai Deng
-    * Github Repository URL: 
+    * Github Repository URL: https://github.com/ese5160/a14g-final-submission-s25-t21-pixel-circuit.git
     * Description of test hardware: (development boards, sensors, actuators, laptop + OS, etc) laptop
 
 ## 1. Video Presentation
