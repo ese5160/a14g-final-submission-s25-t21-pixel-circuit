@@ -75,7 +75,7 @@ https://youtube.com/shorts/kJqO3oqh_wA
 | HW‑01 | **PIR motion detection latency** | < 1 s from movement to IRQ | Oscilloscope on PIR _AIN_ vs. UART “attention” print‑out | ✅ 0.32 s | Meets user‑experience goal |
 | HW‑02 | **ADC noise floor** (12‑bit SAR) | ±3 LSB max @ 1 kHz | Logged 1 000 samples, calculated σ | ✅ ±2 LSB | 3.3 V reference, RC filter |
 | HW‑03 | **OLED legibility** indoors | 700 cd/m² min | Lux‑meter on white screen | ✅ 748 cd/m² | Contrast 100 % |
-| HW‑04 | **Battery life (Li‑Ion 800 mAh)** | ≥ 24 h standby | Simulated with bench supply @ 30 µA sleep | ⚠️ 18 h | Needs deep‑sleep optimisation |
+| HW‑04 | **Battery life (Li‑Ion 800 mAh)** | ≥ 24 h standby | Simulated with bench supply @ 30 µA sleep | ⚠️ | Needs deep‑sleep optimisation |
 | SW‑01 | **FreeRTOS task scheduling jitter** (sensor task) | < 5 ms | vTaskGetRunTimeStats → std dev | ✅ 1.6 ms | 1 kHz SysTick |
 | SW‑02 | **MQTT round‑trip** dashboard→MCU | < 500 ms @ LAN | Timestamp at publish/ISR | ✅ 210 ms | Wi‑Fi RSSI ‑57 dBm |
 | SW‑03 | **OTA firmware update** | Triggered via Node‑RED, success rate > 95 % | 20 cycles, verify CRC | ✅ 20 / 20 | Uses Atmel WINC1500 secure OTA |
