@@ -40,11 +40,12 @@ https://youtube.com/shorts/kJqO3oqh_wA
 
 ### 3. Challenges
 
-| # | Issue | What We Did |
-|---|-------|-------------|
-| 1 | **Tight MCU RAM** – only 14 kB total, 11 kB used by vendor libraries | *Removed* speaker codec, optimised stack sizes, kept OLED font in flash |
-| 2 | **No PWM on PA02** (speaker pin) | Temporarily drove buzzer with DAC square‑wave; plan to reroute to a TCC1 pin in v2 |
-| 3 | **ISR vs MQTT race conditions** | Introduced two FreeRTOS queues (`xQueueDoorEvents`, `xQueueBuzzerCmd`) so ISRs never touch sockets |
+| # | Issue | Mitigation / Result |
+|---|-------|---------------------|
+| 1 | **Tight MCU RAM** – 14 kB total, 11 kB pre‑used by vendor Wi‑Fi stack | • Moved OLED font table to flash (`const PROGMEM`) <br>• Disabled WAV codec & speaker driver to free 1.7 kB <br>• Reduced FreeRTOS task stacks by 20 % |
+| 2 | **No PWM on PA02** (speaker pin) | • Generated square wave via 10‑bit DAC as stop‑gap buzzer <br>• Added _“speaker → TCC1 WO[0]”_ note to PCB‑v2 issues list |
+| 3 | **ISR ↔ MQTT race conditions** | • Created two FreeRTOS queues `xQueueDoorEvents` & `xQueueBuzzerCmd` so ISRs only enqueue, never touch sockets <br>• MQTT publish handled in Wi‑Fi task context |
+| 4 | **Low‑budget PIR latency** | • \$2 Murata PIR selected for BoM limit → 3 m range & 900 ms rise‑time <br>• Debounce filter added, but long latency remains (see Future Work) |
 
 ---
 
@@ -60,15 +61,31 @@ https://youtube.com/shorts/kJqO3oqh_wA
 
 #### Next Steps
 
-1. **PCB v2**: move speaker to a true PWM pin, add 2 MB SPI flash for snapshots, add Li‑ion fuel‑gauge.  
-2. **Full‑duplex audio**: stream ESP‑EYE microphone to dashboard and relay doorbell chime back to speaker.  
-3. **Deep‑sleep mode**: target < 200 µA standby with wake on PIR or Wi‑Fi M2M Wakes.
+1. **PCB v2**  
+   * Move speaker to a true PWM pin (TCC1/WO[0])  
+   * Add 2 MB SPI flash for snapshot buffering  
+   * Integrate Li‑ion fuel gauge & charge‑status LED  
+
+2. **Full‑duplex audio**  
+   * Stream ESP‑EYE microphone to dashboard (WebRTC)  
+   * Relay doorbell chime + pre‑recorded messages back to speaker  
+
+3. **Ultra‑low‑power mode**  
+   * Target \< 200 µA standby with PIR + WINC1500 M2M_wake interrupt  
+   * Periodic RTC wake to push “heartbeat” MQTT packet  
+
+4. **PIR upgrade**  
+   * Replace analog Murata IRA‑S210ST01 with digital Panasonic EKMC series (6 m range, 170 ms latency)  
+   * Remove 100 kΩ pull‑down and averaging filter once latency improves  
 
 #### Course Takeaways
 
-- **Embedded ≠ firmware only** – success required hardware choices, RTOS discipline *and* DevOps (OTA pipeline).  
-- **Iterative validation > end‑of‑cycle testing** – weekly Node‑RED demos exposed integration bugs early.  
-- **Documentation matters** – clear README tables/diagrams made hand‑offs within the team smoother.
+* **Altium first, code later** – learning Altium Designer taught us to allocate RAM/flash and pin‑mux **before** routing; early BoM + DRC saved one board spin.  
+* **Complete E‑CAD workflow** – we now know multi‑sheet schematics, managed libraries, and 2‑layer placement / routing in Altium; gerbers and pick‑&‑place files went to JLC with zero clearance errors.  
+* **Queues > critical sections** – FreeRTOS queues kept ISR‑to‑MQTT hand‑off race‑free.  
+* **Cheap parts ≠ free** – a \$2 PIR saved \$4 but cost latency; breadboard sensors _before_ BoM lock.  
+* **Node‑RED as cloud glue** – visual flows let us bolt on e‑mail, OTA and dashboard widgets without touching firmware.  
+* **OTA is priceless** – Wi‑Fi OTAF‑U let us fix bugs and add features without ever opening the enclosure.
 
 ---
 
@@ -76,7 +93,7 @@ https://youtube.com/shorts/kJqO3oqh_wA
 
 | Req ID | Requirement (from design spec) | Target Metric | Test / Validation Method | Result | Notes |
 |-------:|--------------------------------|--------------:|--------------------------|:------:|-------|
-| HW‑01 | **PIR motion detection latency** | < 1 s from movement to IRQ | Oscilloscope on PIR _AIN_ vs. UART “attention” print‑out | ✅ 0.32 s | Meets user‑experience goal |
+| HW‑01 | **PIR motion detection latency / range** | < 1 s from movement to IRQ | Oscilloscope on PIR _AIN_ vs. UART “attention” print‑out | ⚠️ | Budget PIR; see cost‑driven challenge note |
 | HW‑02 | **ADC noise floor** (12‑bit SAR) | ±3 LSB max @ 1 kHz | Logged 1 000 samples, calculated σ | ✅ ±2 LSB | 3.3 V reference, RC filter |
 | HW‑03 | **OLED legibility** indoors | 700 cd/m² min | Lux‑meter on white screen | ✅ 748 cd/m² | Contrast 100 % |
 | HW‑04 | **Battery life (Li‑Ion 800 mAh)** | ≥ 24 h standby | Simulated with bench supply @ 30 µA sleep | ⚠️ | Needs deep‑sleep optimisation |
