@@ -68,6 +68,8 @@ https://youtube.com/shorts/kJqO3oqh_wA
 - **Iterative validation > end‑of‑cycle testing** – weekly Node‑RED demos exposed integration bugs early.  
 - **Documentation matters** – clear README tables/diagrams made hand‑offs within the team smoother.
 
+---
+
 ## 3. Hardware & Software Requirements
 
 | Req ID | Requirement (from design spec) | Target Metric | Test / Validation Method | Result | Notes |
