@@ -13,9 +13,9 @@ https://youtube.com/shorts/kJqO3oqh_wA
 
 ## 2. Project Summary
 
-### 1 · Device Description
-* **What it is** – SmartDoor Vision retrofits a dorm‑room or apartment door with a PIR motion sensor and an ESP‑EYE camera.  
-* **Why we built it** – Traditional peepholes provide zero remote awareness and no recording. SD‑Vision solves that limitation without modifying building wiring.  
+### 1. Device Description
+* **What it is** – A battery‑powered smart‑door add‑on that live‑streams video, senses motion and pushes e‑mail alerts. A Node‑RED dashboard shows status, hosts an emergency button and triggers OTA firmware updates.  
+* **Why we built it** – Dorm rooms lack intercoms; package theft and unwanted visitors are common. We wanted a retrofit solution—no drilling, no paid cloud.
 * **Internet integration** – Events publish over MQTT to an Azure VM running Node‑RED. From the dashboard you can:
   * Watch live video & snapshots  
   * Read door status (“attention/safe”) in real time  
@@ -24,50 +24,53 @@ https://youtube.com/shorts/kJqO3oqh_wA
 
 ---
 
-### 2 · Device Functionality
+### 2. Device Functionality
 
-| Sub‑system | Part / Interface | Role |
-|------------|------------------|------|
-| **Sensor** | IRA‑S210 PIR → ADC (PA03) | Detect motion, push events |
-| **Camera** | ESP‑EYE Wi‑Fi | Live MJPEG + snapshot |
-| **Actuators** | SSD1306 128×32 OLED (I²C) & LED | Show *“⚠ Police on the way / Safe environment”* |
-| | Piezo buzzer on **PA02 (PWM 2 kHz)** | Two‑second siren |
-| **Comms** | WINC1500 Wi‑Fi · MQTT (QoS 1) | TX sensor, RX commands |
-| **Firmware** | SAMD21 · FreeRTOS · queues | Non‑blocking drivers |
-| **Cloud/UI** | Node‑RED dashboard | Status, live view, OTAFU |
-
-<p align="center">
-  <img src="door-system-block.svg" alt="System Block Diagram" width="80%">
-</p>
+| Element | Details |
+| ------- | ------- |
+| **Sensors** | Murata IRA‑S210ST01 PIR → ADC PA03. Threshold 1000 raw (≈1.2 V) → `attention` vs `safe`. |
+| **Actuators** | *I²C OLED* (UG‑2864HSWEG01) + on‑board LED. Panic button toggles text **“the police is coming”** and LED.<br>*Speaker* footprint present but disabled (MCU RAM limits). |
+| **Live video** | ESP‑EYE 2 MP camera streams MJPEG + built‑in mic (no extra MCU RAM). |
+| **Snapshot & mail** | Each `attention` sends JPEG + timestamp to user‑supplied e‑mail via Node‑RED SMTP. |
+| **OTA update** | Dashboard buttons **GOLDEN IMAGE** / **OTA UPDATE (FW)** push a firmware URL; board downloads and self‑flashes. |
 
 ---
 
-### 3 · Challenges
+### 3. Challenges
 
-| Challenge | Root Cause | Mitigation |
-|-----------|------------|------------|
-| **Analog noise on PIR** | Wi‑Fi bursts bled into PA03 trace | Split analog/digital ground, RC filter 100 kΩ/100 nF |
-| **OLED locked I²C bus** | Blocking driver in tight loop | Re‑wrote as non‑blocking state machine |
-| **OTA flash corruption** | Power drop during swap | Added CRC + rollback slot |
-
----
-
-### 4 · Prototype Learnings
-
-* **Plan pin‑mux early** – PA02 DAC vs. PWM cost ~1 h to debug.  
-* **Noise windows** – Real hallways create borderline ADC levels; hardware WC + debounce mandatory.  
-* **If rebuilding** – Use a digital PIR with built‑in comparator and an SPI display to free I²C.
+| # | Issue | What We Did |
+|---|-------|-------------|
+| 1 | **Tight MCU RAM** – only 14 kB total, 11 kB used by vendor libraries | *Removed* speaker codec, optimised stack sizes, kept OLED font in flash |
+| 2 | **No PWM on PA02** (speaker pin) | Temporarily drove buzzer with DAC square‑wave; plan to reroute to a TCC1 pin in v2 |
+| 3 | **ISR vs MQTT race conditions** | Introduced two FreeRTOS queues (`xQueueDoorEvents`, `xQueueBuzzerCmd`) so ISRs never touch sockets |
 
 ---
 
-### 5 · Next Steps & Takeaways
+### 4. Prototype Learnings
 
-* **Improvements** – Add Li‑ion + boost for cable‑free power; migrate MQTT to TLS.  
-* **Course takeaways** – Deepened skills in FreeRTOS task design, bare‑metal driver writing on SAMD21, and secure OTA deployment.
+- **Measure first, design second** – RAM/flash profiling before adding features prevented late‑stage re‑writes.  
+- **Off‑board UI wins** – pushing logic to Node‑RED let us tweak alert thresholds and e‑mail text without reflashing firmware.  
+- **Test‑pads + CLI save hours** – being able to print raw ADC and switch pins through the CLI accelerated bring‑up and debugging.
 
 ---
+
+### 5. Next Steps & Takeaways
+
+#### Next Steps
+
+1. **PCB v2**: move speaker to a true PWM pin, add 2 MB SPI flash for snapshots, add Li‑ion fuel‑gauge.  
+2. **Full‑duplex audio**: stream ESP‑EYE microphone to dashboard and relay doorbell chime back to speaker.  
+3. **Deep‑sleep mode**: target < 200 µA standby with wake on PIR or Wi‑Fi M2M Wakes.
+
+#### Course Takeaways
+
+- **Embedded ≠ firmware only** – success required hardware choices, RTOS discipline *and* DevOps (OTA pipeline).  
+- **Iterative validation > end‑of‑cycle testing** – weekly Node‑RED demos exposed integration bugs early.  
+- **Documentation matters** – clear README tables/diagrams made hand‑offs within the team smoother.
 
 ## 3. Hardware & Software Requirements
+
+
 
 ## 4. Project Photos & Screenshots
 
