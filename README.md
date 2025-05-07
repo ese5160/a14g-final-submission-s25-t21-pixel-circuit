@@ -86,7 +86,7 @@ https://youtube.com/shorts/kJqO3oqh_wA
 | SW‑04 | **RAM usage** fits 14 kB | ≤ 13 kB after build | `arm-none-eabi-size` | ✅ 12.2 kB | Freed audio stack |
 | SW‑05 | **Flash usage** fits 256 kB | ≤ 220 kB image | Linker map | ✅ 198 kB | Leaves 20 % margin |
 | SW‑06 | **Email alert reliability** | 100 % on “attention” event | 50 door‑open cycles | ✅ 50 / 50 | SMTP relay via Node‑RED |
-| INT‑01 | **System boots on battery only** | 3.0 V → 4.2 V | Power‑cycle test | ✅ | Buck‑boost TPS61291 |
+| INT‑01 | **System boots on battery only** | 3.4 V → 4.2 V | Power‑cycle test | ✅ | Buck‑boost TPS61291 |
 
 > **Legend**   
 > ✅ Met ⚠️ Partially met / needs improvement ❌ Not met
