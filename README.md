@@ -9,6 +9,8 @@
 
 ## 1. Video Presentation
 
+https://youtube.com/shorts/kJqO3oqh_wA
+
 ## 2. Project Summary
 
 ## 3. Hardware & Software Requirements
