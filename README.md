@@ -49,6 +49,10 @@ https://youtube.com/shorts/kJqO3oqh_wA
 | 2 | **No PWM on PA02** (speaker pin) | • Generated square wave via 10‑bit DAC as stop‑gap buzzer <br>• Added _“speaker → TCC1 WO[0]”_ note to PCB‑v2 issues list |
 | 3 | **ISR ↔ MQTT race conditions** | • Created two FreeRTOS queues `xQueueDoorEvents` & `xQueueBuzzerCmd` so ISRs only enqueue, never touch sockets <br>• MQTT publish handled in Wi‑Fi task context |
 | 4 | **Low‑budget PIR latency** | • \$2 Murata PIR selected for BoM limit → 3 m range & 900 ms rise‑time <br>• Debounce filter added, but long latency remains (see Future Work) |
+| 5 | **Node-RED not optimized for video** | • Switched from real video to periodic JPEG frames (~1–3 fps) <br>• Frame sent as Base64 via MQTT or HTTP POST, displayed with `<img>` in dashboard |
+| 6 | **Web dashboard frame flicker** | • Introduced timestamp-based buffer to avoid image overwrite conflicts <br>• Only update display if new frame differs from previous |
+| 7 | **Large JPEG frames cause MQTT choke** | • Capped resolution to QQVGA (160×120), frame <5 kB <br>• Allowed only 1 in-flight image at a time to prevent overload |
+| 8 | **Browser-side image memory growth** | • Manually revoked `<img>` blob URLs and cleared DOM nodes every 10 frames <br>• Exploring `<canvas>`-based rendering in Future Work |
 
 ---
 
@@ -80,6 +84,19 @@ https://youtube.com/shorts/kJqO3oqh_wA
 4. **PIR upgrade**  
    * Replace analog Murata IRA‑S210ST01 with digital Panasonic EKMC series (6 m range, 170 ms latency)  
    * Remove 100 kΩ pull‑down and averaging filter once latency improves  
+   
+5. **Web-based video frontend**  
+   * Replace Node-RED with Flask + WebSocket server for smoother JPEG streaming  
+   * Use `<canvas>` or `<video>` HTML5 elements for improved rendering control  
+   * Support frame annotations (bounding boxes, timestamps)  
+
+6. **MJPEG / HLS streaming**  
+   * Explore MJPEG over HTTP or HLS (HTTP Live Streaming) for better compatibility  
+   * Reduce latency and improve real-time responsiveness of video feed  
+
+7. **Video-aware flow control**  
+   * Implement adaptive frame rate based on network condition and browser feedback  
+   * Buffer overflow protection and dropped-frame detection via frame index tracking  
 
 #### Course Takeaways
 
