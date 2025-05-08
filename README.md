@@ -211,4 +211,3 @@ This project leverages the following open-source components:
 
 - Espressif Systems for providing comprehensive ESP-IDF examples and solutions.
 - Community documentation and tutorials referenced via [docs.espressif.com](https://docs.espressif.com/) and relevant GitHub issues/discussions.
-
