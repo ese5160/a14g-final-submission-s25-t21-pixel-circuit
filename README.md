@@ -9,7 +9,7 @@
 
 ## 1. Video Presentation
 
-https://youtube.com/shorts/kJqO3oqh_wA
+[YouTube Shorts Video](https://www.youtube.com/watch?v=kJqO3oqh_wA)
 
 ---
 
