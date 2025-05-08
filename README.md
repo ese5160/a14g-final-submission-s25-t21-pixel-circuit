@@ -189,8 +189,22 @@ Altium 365: [https://upenn-eselabs.365.altium.com/designs/AF1AAD73-CCAB-4D4B-BED
 ---
 
 ## Codebase
+ 
+- A link to your final embedded C firmware codebases :https://github.com/ese5160/a14g-final-submission-s25-t21-pixel-circuit/tree/main/final-project-t21-pixel-circuit
+- A link to your Node-RED dashboard code : https://github.com/ese5160/a14g-final-submission-s25-t21-pixel-circuit/blob/main/final-project-t21-pixel-circuit/NODE-RED/flows%20(1).json
+- Links to any other software required for the functionality of your device :https://github.com/ese5160/a14g-final-submission-s25-t21-pixel-circuit/tree/main/video_stream_server
 
-- A link to your final embedded C firmware codebases
-- A link to your Node-RED dashboard code
-- Links to any other software required for the functionality of your device
+
+## 📚 Open-Source Components Used
+
+This project leverages the following open-source components:
+
+- [`video_stream_server`](https://github.com/espressif/esp-iot-solution/tree/master/examples/video_stream_server) from Espressif's [`esp-iot-solution`](https://github.com/espressif/esp-iot-solution) repository  
+  Licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)  
+  We extended this component by integrating MQTT-based image publishing and control features.
+
+## 🙏 Acknowledgements
+
+- Espressif Systems for providing comprehensive ESP-IDF examples and solutions.
+- Community documentation and tutorials referenced via [docs.espressif.com](https://docs.espressif.com/) and relevant GitHub issues/discussions.
 
