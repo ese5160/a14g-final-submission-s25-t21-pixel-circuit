@@ -84,7 +84,7 @@ https://youtube.com/shorts/kJqO3oqh_wA
 4. **PIR upgrade**  
    * Replace analog Murata IRA‑S210ST01 with digital Panasonic EKMC series (6 m range, 170 ms latency)  
    * Remove 100 kΩ pull‑down and averaging filter once latency improves  
-   
+
 5. **Web-based video frontend**  
    * Replace Node-RED with Flask + WebSocket server for smoother JPEG streaming  
    * Use `<canvas>` or `<video>` HTML5 elements for improved rendering control  
@@ -125,6 +125,7 @@ Altium 365: [https://upenn-eselabs.365.altium.com/designs/AF1AAD73-CCAB-4D4B-BED
 | HW‑02 | **ADC noise floor** (12‑bit SAR) | ±3 LSB max @ 1 kHz | Logged 1 000 samples, calculated σ | ✅ | 3.3 V reference, RC filter |
 | HW‑03 | **OLED legibility** indoors | 700 cd/m² min | Lux‑meter on white screen | ✅ | Contrast 100 % |
 | HW‑04 | **Battery life (Li‑Ion 800 mAh)** | ≥ 24 h standby | Simulated with bench supply @ 30 µA sleep | ⚠️ | Needs deep‑sleep optimisation |
+| HW‑05 | **ESP32-S3-EYE JPEG frame capture** | ≥ 1 fps @ QQVGA (160×120) | Measured frame interval with timestamped logs | ✅ | 2.3 fps avg; JPEG size ~4.6 kB |
 | SW‑01 | **FreeRTOS task scheduling jitter** (sensor task) | < 5 ms | vTaskGetRunTimeStats → std dev | ✅ | 1 kHz SysTick |
 | SW‑02 | **MQTT round‑trip** dashboard→MCU | < 500 ms @ LAN | Timestamp at publish/ISR | ✅ | Wi‑Fi RSSI ‑57 dBm |
 | SW‑03 | **OTA firmware update** | Triggered via Node‑RED, success rate > 95 % | 20 cycles, verify CRC | ✅ | Uses Atmel WINC1500 secure OTA |
