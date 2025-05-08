@@ -95,7 +95,7 @@ https://youtube.com/shorts/kJqO3oqh_wA
 
 Node-RED instance: [http://20.55.16.155:1880/ui](http://20.55.16.155:1880/#flow/e5ea7423b886c1a5)
 
-Altium 365: https://upenn-eselabs.365.altium.com/designs/AF1AAD73-CCAB-4D4B-BED5-52957B402218?activeDocumentId=Top20Level.SchDoc(1)&variant=%5BNo+Variations%5D&activeView=SCH&location=%5B1,97.61,18.77,22.79%5D#design
+Altium 365: [https://upenn-eselabs.365.altium.com/designs/AF1AAD73-CCAB-4D4B-BED5-52957B402218?activeDocumentId=Top20Level.SchDoc(1)&variant=%5BNo+Variations%5D&activeView=SCH&location=%5B1,97.61,18.77,22.79%5D#design](https://upenn-eselabs.365.altium.com/designs/AF1AAD73-CCAB-4D4B-BED5-52957B402218?activeView=SCH&activeDocumentId=Top20Level.SchDoc(1)&variant=[No+Variations]&location=[1,97.61,18.77,22.79]#design)
 
 ---
 
