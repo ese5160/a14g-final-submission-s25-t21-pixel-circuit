@@ -36,6 +36,8 @@ https://youtube.com/shorts/kJqO3oqh_wA
 | **Snapshot & mail** | Each `attention` sends JPEG + timestamp to user‑supplied e‑mail via Node‑RED SMTP. |
 | **OTA update** | Dashboard buttons **GOLDEN IMAGE** / **OTA UPDATE (FW)** push a firmware URL; board downloads and self‑flashes. |
 
+![1.2](https://github.com/user-attachments/assets/6076e328-336d-4f9d-8df0-840ed20ad933)
+
 ---
 
 ### 3. Challenges
@@ -94,15 +96,15 @@ https://youtube.com/shorts/kJqO3oqh_wA
 | Req ID | Requirement (from design spec) | Target Metric | Test / Validation Method | Result | Notes |
 |-------:|--------------------------------|--------------:|--------------------------|:------:|-------|
 | HW‑01 | **PIR motion detection latency / range** | < 1 s from movement to IRQ | Oscilloscope on PIR _AIN_ vs. UART “attention” print‑out | ⚠️ | Budget PIR; see cost‑driven challenge note |
-| HW‑02 | **ADC noise floor** (12‑bit SAR) | ±3 LSB max @ 1 kHz | Logged 1 000 samples, calculated σ | ✅ ±2 LSB | 3.3 V reference, RC filter |
-| HW‑03 | **OLED legibility** indoors | 700 cd/m² min | Lux‑meter on white screen | ✅ 748 cd/m² | Contrast 100 % |
+| HW‑02 | **ADC noise floor** (12‑bit SAR) | ±3 LSB max @ 1 kHz | Logged 1 000 samples, calculated σ | ✅ | 3.3 V reference, RC filter |
+| HW‑03 | **OLED legibility** indoors | 700 cd/m² min | Lux‑meter on white screen | ✅ | Contrast 100 % |
 | HW‑04 | **Battery life (Li‑Ion 800 mAh)** | ≥ 24 h standby | Simulated with bench supply @ 30 µA sleep | ⚠️ | Needs deep‑sleep optimisation |
-| SW‑01 | **FreeRTOS task scheduling jitter** (sensor task) | < 5 ms | vTaskGetRunTimeStats → std dev | ✅ 1.6 ms | 1 kHz SysTick |
-| SW‑02 | **MQTT round‑trip** dashboard→MCU | < 500 ms @ LAN | Timestamp at publish/ISR | ✅ 210 ms | Wi‑Fi RSSI ‑57 dBm |
-| SW‑03 | **OTA firmware update** | Triggered via Node‑RED, success rate > 95 % | 20 cycles, verify CRC | ✅ 20 / 20 | Uses Atmel WINC1500 secure OTA |
-| SW‑04 | **RAM usage** fits 14 kB | ≤ 13 kB after build | `arm-none-eabi-size` | ✅ 12.2 kB | Freed audio stack |
-| SW‑05 | **Flash usage** fits 256 kB | ≤ 220 kB image | Linker map | ✅ 198 kB | Leaves 20 % margin |
-| SW‑06 | **Email alert reliability** | 100 % on “attention” event | 50 door‑open cycles | ✅ 50 / 50 | SMTP relay via Node‑RED |
+| SW‑01 | **FreeRTOS task scheduling jitter** (sensor task) | < 5 ms | vTaskGetRunTimeStats → std dev | ✅ | 1 kHz SysTick |
+| SW‑02 | **MQTT round‑trip** dashboard→MCU | < 500 ms @ LAN | Timestamp at publish/ISR | ✅ | Wi‑Fi RSSI ‑57 dBm |
+| SW‑03 | **OTA firmware update** | Triggered via Node‑RED, success rate > 95 % | 20 cycles, verify CRC | ✅ | Uses Atmel WINC1500 secure OTA |
+| SW‑04 | **RAM usage** fits 14 kB | ≤ 13 kB after build | `arm-none-eabi-size` | ✅ | Freed audio stack |
+| SW‑05 | **Flash usage** fits 256 kB | ≤ 220 kB image | Linker map | ✅ | Leaves 20 % margin |
+| SW‑06 | **Email alert reliability** | 100 % on “attention” event | 50 door‑open cycles | ✅ | SMTP relay via Node‑RED |
 | INT‑01 | **System boots on battery only** | 3.4 V → 4.2 V | Power‑cycle test | ✅ | Buck‑boost TPS61291 |
 
 > **Legend**   
@@ -116,6 +118,15 @@ https://youtube.com/shorts/kJqO3oqh_wA
 ---
 
 ## 4. Project Photos & Screenshots
+
+![1](https://github.com/user-attachments/assets/c5e2b057-9cc8-48d4-8ce6-dd802e0b4e99)
+
+![2](https://github.com/user-attachments/assets/e7549c49-9389-4be4-8865-2ed3f04d349b)
+
+![3](https://github.com/user-attachments/assets/408e9619-36ab-4047-997a-8ee7dc5547fd)
+
+
+---
 
 ## Codebase
 
