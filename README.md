@@ -195,7 +195,7 @@ Altium 365: [https://upenn-eselabs.365.altium.com/designs/AF1AAD73-CCAB-4D4B-BED
 - Links to any other software required for the functionality of your device :https://github.com/ese5160/a14g-final-submission-s25-t21-pixel-circuit/tree/main/video_stream_server
 
 
-## 📚 Open-Source Components Used
+## Open-Source Components Used
 
 This project leverages the following open-source components:
 
@@ -203,7 +203,7 @@ This project leverages the following open-source components:
   Licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)  
   We extended this component by integrating MQTT-based image publishing and control features.
 
-## 🙏 Acknowledgements
+## Acknowledgements
 
 - Espressif Systems for providing comprehensive ESP-IDF examples and solutions.
 - Community documentation and tutorials referenced via [docs.espressif.com](https://docs.espressif.com/) and relevant GitHub issues/discussions.
