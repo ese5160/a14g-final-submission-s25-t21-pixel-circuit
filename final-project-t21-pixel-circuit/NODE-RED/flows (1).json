@@ -1,0 +1,1030 @@
+[
+    {
+        "id": "e5ea7423b886c1a5",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "369148baa013f499",
+        "type": "group",
+        "z": "e5ea7423b886c1a5",
+        "name": "Camera",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "d6ce968ac1cad05a",
+            "2a293b50d6bbbdb2",
+            "7366f3c3c6c8343b",
+            "a7d65c380269c2f4",
+            "971311131a5057cf",
+            "9cbc9638ac35b0eb",
+            "a7dfad60abde4760",
+            "939dc32cc65e8fb2",
+            "cda926ef81a7b995",
+            "a4d24ae80e938566"
+        ],
+        "x": 94,
+        "y": 859,
+        "w": 1172,
+        "h": 302
+    },
+    {
+        "id": "4b9081a5f59bfa34",
+        "type": "mqtt out",
+        "z": "e5ea7423b886c1a5",
+        "name": "mqttOut",
+        "topic": "P1_LED_ESE516_T0",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "107bf69389d2f738",
+        "x": 640,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "3380f19fbdfdc50e",
+        "type": "mqtt in",
+        "z": "e5ea7423b886c1a5",
+        "name": "mqttln",
+        "topic": "P1_TEMPERATURE_ESE516_T0",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "107bf69389d2f738",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 240,
+        "wires": [
+            [
+                "0794d32f9db1665d",
+                "0c73261ab1f44486",
+                "218d4941693f4435"
+            ]
+        ]
+    },
+    {
+        "id": "0794d32f9db1665d",
+        "type": "debug",
+        "z": "e5ea7423b886c1a5",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "f482c2549a8a61e8",
+        "type": "ui_led",
+        "z": "e5ea7423b886c1a5",
+        "order": 1,
+        "group": "a6dde8891f7be2c7",
+        "width": 2,
+        "height": 1,
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 770,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "ce3ab2fd9eb1d865",
+        "type": "ui_switch",
+        "z": "e5ea7423b886c1a5",
+        "name": "",
+        "label": "Call the police",
+        "tooltip": "",
+        "group": "a6dde8891f7be2c7",
+        "order": 7,
+        "width": 5,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "P1_LED_ESE516_T0",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 280,
+        "y": 400,
+        "wires": [
+            [
+                "4b9081a5f59bfa34",
+                "81c471e20ca7d7d4"
+            ]
+        ]
+    },
+    {
+        "id": "81c471e20ca7d7d4",
+        "type": "debug",
+        "z": "e5ea7423b886c1a5",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "0c73261ab1f44486",
+        "type": "function",
+        "z": "e5ea7423b886c1a5",
+        "name": "Parse Button JSON",
+        "func": "// Simple button state processing\nif (msg.payload === \"attention\") {\n    msg.payload = true;\n    return msg;\n} \nelse if (msg.payload === \"safe now\") {\n    msg.payload = false;\n    return msg;\n}\n// Pass through other messages\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 220,
+        "wires": [
+            [
+                "f482c2549a8a61e8",
+                "da1f00b49e5c12c5",
+                "dbcf3e2e3dedc048"
+            ]
+        ]
+    },
+    {
+        "id": "a960f7a0abfca087",
+        "type": "e-mail",
+        "z": "e5ea7423b886c1a5",
+        "server": "smtp.163.com",
+        "port": "465",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": true,
+        "tls": true,
+        "name": "zhongyuw@seas.upenn.edu",
+        "dname": "",
+        "x": 900,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "db756fe5fa1b52ba",
+        "type": "inject",
+        "z": "e5ea7423b886c1a5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "node_red",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 310,
+        "y": 780,
+        "wires": [
+            [
+                "2b2565eea6abcfe0"
+            ]
+        ]
+    },
+    {
+        "id": "2b2565eea6abcfe0",
+        "type": "switch",
+        "z": "e5ea7423b886c1a5",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 490,
+        "y": 780,
+        "wires": [
+            [
+                "40a7edc859ed0a2a"
+            ]
+        ]
+    },
+    {
+        "id": "40a7edc859ed0a2a",
+        "type": "function",
+        "z": "e5ea7423b886c1a5",
+        "name": "function 1",
+        "func": "msg.payload = \"Someone is closing\";\nmsg.topic  = \"node-red\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 780,
+        "wires": [
+            [
+                "a960f7a0abfca087"
+            ]
+        ]
+    },
+    {
+        "id": "73119c75ae511207",
+        "type": "e-mail",
+        "z": "e5ea7423b886c1a5",
+        "server": "smtp.163.com",
+        "port": "465",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": true,
+        "tls": true,
+        "name": "zhongyuw@seas.upenn.edu",
+        "dname": "",
+        "x": 1160,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "da1f00b49e5c12c5",
+        "type": "switch",
+        "z": "e5ea7423b886c1a5",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 750,
+        "y": 300,
+        "wires": [
+            [
+                "0cac7838464d919a"
+            ],
+            [
+                "a967c16de52e17a8"
+            ]
+        ]
+    },
+    {
+        "id": "0cac7838464d919a",
+        "type": "function",
+        "z": "e5ea7423b886c1a5",
+        "name": "function 2",
+        "func": "msg.topic = \"Door Alert\";\nmsg.payload = \"attention\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 300,
+        "wires": [
+            [
+                "73119c75ae511207"
+            ]
+        ]
+    },
+    {
+        "id": "a967c16de52e17a8",
+        "type": "function",
+        "z": "e5ea7423b886c1a5",
+        "name": "function 3",
+        "func": "msg.topic = \"Door Status\";\nmsg.payload = \"safe now\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 360,
+        "wires": [
+            [
+                "c6d5c2651b85891a"
+            ]
+        ]
+    },
+    {
+        "id": "c6d5c2651b85891a",
+        "type": "e-mail",
+        "z": "e5ea7423b886c1a5",
+        "server": "smtp.163.com",
+        "port": "465",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": true,
+        "tls": true,
+        "name": "zhongyuw@seas.upenn.edu",
+        "dname": "",
+        "x": 1160,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "218d4941693f4435",
+        "type": "ui_text",
+        "z": "e5ea7423b886c1a5",
+        "group": "a6dde8891f7be2c7",
+        "order": 2,
+        "width": 9,
+        "height": 1,
+        "name": "",
+        "label": "Out Door environment",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": true,
+        "font": "Georgia,Georgia,serif",
+        "fontSize": "20",
+        "color": "#33995a",
+        "x": 560,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "inject_clock",
+        "type": "inject",
+        "z": "e5ea7423b886c1a5",
+        "name": "Tick every second",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 620,
+        "wires": [
+            [
+                "format_time_en"
+            ]
+        ]
+    },
+    {
+        "id": "format_time_en",
+        "type": "function",
+        "z": "e5ea7423b886c1a5",
+        "name": "Format to 'Month dd, yyyy HH:mm:ss'",
+        "func": "const now = new Date();\nconst months = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\",\n                 \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];\n\nconst monthName = months[now.getMonth()];\nconst day = String(now.getDate()).padStart(2, '0');\nconst year = now.getFullYear();\nconst hours = String(now.getHours()).padStart(2, '0');\nconst minutes = String(now.getMinutes()).padStart(2, '0');\nconst seconds = String(now.getSeconds()).padStart(2, '0');\n\nmsg.payload = `${monthName} ${day}, ${year}  ${hours}:${minutes}:${seconds}`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 620,
+        "wires": [
+            [
+                "9af50a7b3ad80d51"
+            ]
+        ]
+    },
+    {
+        "id": "ui_template_clock",
+        "type": "ui_template",
+        "z": "e5ea7423b886c1a5",
+        "group": "a6dde8891f7be2c7",
+        "name": "Analog Clock",
+        "order": 6,
+        "width": 7,
+        "height": 5,
+        "format": "<div style=\"text-align:center\">\n  <canvas id=\"clockCanvas\" width=\"200\" height=\"200\"></canvas>\n</div>\n\n<script>\nconst canvas = document.getElementById('clockCanvas');\nconst ctx = canvas.getContext('2d');\nconst radius = canvas.height / 2;\nctx.translate(radius, radius);\nsetInterval(drawClock, 1000);\n\nfunction drawClock() {\n  drawFace(ctx, radius);\n  drawNumbers(ctx, radius);\n  drawTime(ctx, radius);\n}\n\nfunction drawFace(ctx, radius) {\n  ctx.beginPath();\n  ctx.arc(0, 0, radius, 0, 2 * Math.PI);\n  ctx.fillStyle = 'white';\n  ctx.fill();\n  ctx.strokeStyle = '#333';\n  ctx.lineWidth = radius * 0.05;\n  ctx.stroke();\n  ctx.beginPath();\n  ctx.arc(0, 0, radius * 0.05, 0, 2 * Math.PI);\n  ctx.fillStyle = '#333';\n  ctx.fill();\n}\n\nfunction drawNumbers(ctx, radius) {\n  ctx.font = radius * 0.15 + \"px Arial\";\n  ctx.textBaseline = \"middle\";\n  ctx.textAlign = \"center\";\n  for (let num = 1; num <= 12; num++) {\n    let ang = num * Math.PI / 6;\n    ctx.rotate(ang);\n    ctx.translate(0, -radius * 0.85);\n    ctx.rotate(-ang);\n    ctx.fillText(num.toString(), 0, 0);\n    ctx.rotate(ang);\n    ctx.translate(0, radius * 0.85);\n    ctx.rotate(-ang);\n  }\n}\n\nfunction drawTime(ctx, radius) {\n  const now = new Date();\n  let hour = now.getHours();\n  let minute = now.getMinutes();\n  let second = now.getSeconds();\n  // hour\n  hour = hour % 12;\n  hour = (hour * Math.PI / 6) + (minute * Math.PI / (6 * 60)) + (second * Math.PI / (360 * 60));\n  drawHand(ctx, hour, radius * 0.5, radius * 0.07);\n  // minute\n  minute = (minute * Math.PI / 30) + (second * Math.PI / (30 * 60));\n  drawHand(ctx, minute, radius * 0.8, radius * 0.07);\n  // second\n  second = (second * Math.PI / 30);\n  drawHand(ctx, second, radius * 0.9, radius * 0.02, 'red');\n}\n\nfunction drawHand(ctx, pos, length, width, color = '#000') {\n  ctx.beginPath();\n  ctx.lineWidth = width;\n  ctx.lineCap = \"round\";\n  ctx.strokeStyle = color;\n  ctx.moveTo(0, 0);\n  ctx.rotate(pos);\n  ctx.lineTo(0, -length);\n  ctx.stroke();\n  ctx.rotate(-pos);\n}\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 410,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dbcf3e2e3dedc048",
+        "type": "switch",
+        "z": "e5ea7423b886c1a5",
+        "name": "If true",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 810,
+        "y": 460,
+        "wires": [
+            [
+                "1cba2b79dfb03836"
+            ]
+        ]
+    },
+    {
+        "id": "9f9f126a58a8865c",
+        "type": "function",
+        "z": "e5ea7423b886c1a5",
+        "name": "Make time string",
+        "func": "const now = new Date();\nmsg.payload = \"Time of last visitor : \" + now.toLocaleString();\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 460,
+        "wires": [
+            [
+                "76c51afaec756e98"
+            ]
+        ]
+    },
+    {
+        "id": "d6ce968ac1cad05a",
+        "type": "mqtt in",
+        "z": "e5ea7423b886c1a5",
+        "g": "369148baa013f499",
+        "name": "Receive Camera Image",
+        "topic": "/camera/image",
+        "qos": "0",
+        "datatype": "buffer",
+        "broker": "mqtt_broker_config",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 220,
+        "y": 980,
+        "wires": [
+            [
+                "2a293b50d6bbbdb2",
+                "a7d65c380269c2f4"
+            ]
+        ]
+    },
+    {
+        "id": "2a293b50d6bbbdb2",
+        "type": "base64",
+        "z": "e5ea7423b886c1a5",
+        "g": "369148baa013f499",
+        "name": "Buffer to Base64",
+        "action": "",
+        "property": "payload",
+        "x": 510,
+        "y": 980,
+        "wires": [
+            [
+                "7366f3c3c6c8343b",
+                "971311131a5057cf"
+            ]
+        ]
+    },
+    {
+        "id": "7366f3c3c6c8343b",
+        "type": "ui_template",
+        "z": "e5ea7423b886c1a5",
+        "g": "369148baa013f499",
+        "group": "a6dde8891f7be2c7",
+        "name": "Display Image",
+        "order": 9,
+        "width": 14,
+        "height": 12,
+        "format": "<style>\n    body {\n        font-family: \"Segoe UI\", sans-serif;\n        color: #333;\n    }\n\n    .section-title {\n        font-weight: bold;\n        font-size: 18px;\n        margin: 10px 0;\n        color: #0d47a1;\n    }\n\n    .snapshot-box {\n        border: 2px solid #ccc;\n        padding: 8px;\n        border-radius: 8px;\n        background-color: #f9f9f9;\n    }\n\n    .status-green {\n        color: green;\n        font-weight: bold;\n    }\n</style>\n<div>\n    <h4>📺 Live View</h4>\n    <img style=\"width:100%\" ng-src=\"data:image/jpeg;base64,{{msg.payload}}\">\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 820,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a7d65c380269c2f4",
+        "type": "debug",
+        "z": "e5ea7423b886c1a5",
+        "g": "369148baa013f499",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "1cba2b79dfb03836",
+        "type": "link out",
+        "z": "e5ea7423b886c1a5",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "70996ecc59276e87",
+            "939dc32cc65e8fb2"
+        ],
+        "x": 945,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "70996ecc59276e87",
+        "type": "link in",
+        "z": "e5ea7423b886c1a5",
+        "name": "link in 2",
+        "links": [
+            "1cba2b79dfb03836"
+        ],
+        "x": 1025,
+        "y": 460,
+        "wires": [
+            [
+                "9f9f126a58a8865c"
+            ]
+        ]
+    },
+    {
+        "id": "971311131a5057cf",
+        "type": "function",
+        "z": "e5ea7423b886c1a5",
+        "g": "369148baa013f499",
+        "name": "Save Latest Frame",
+        "func": "flow.set(\"bufferedImage\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 1060,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9cbc9638ac35b0eb",
+        "type": "function",
+        "z": "e5ea7423b886c1a5",
+        "g": "369148baa013f499",
+        "name": "Trigger Snapshot",
+        "func": "msg.payload = flow.get(\"bufferedImage\");\nflow.set(\"lastImage\", msg.payload);\n\n// take time\nconst now = new Date();\nconst timestamp = now.toLocaleString(\"en-US\", {\n    year: \"numeric\",\n    month: \"long\",\n    day: \"2-digit\",\n    hour: \"2-digit\",\n    minute: \"2-digit\",\n    second: \"2-digit\",\n    hour12: false\n});\n\n// add snapshotTimes \nlet times = flow.get(\"snapshotTimes\") || [];\ntimes.push(timestamp);\nflow.set(\"snapshotTimes\", times);\n\n\nmsg.snapshotTimes = times;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 900,
+        "wires": [
+            [
+                "a7dfad60abde4760",
+                "cda926ef81a7b995"
+            ]
+        ]
+    },
+    {
+        "id": "a7dfad60abde4760",
+        "type": "ui_template",
+        "z": "e5ea7423b886c1a5",
+        "g": "369148baa013f499",
+        "group": "a6dde8891f7be2c7",
+        "name": "Display Snapshot",
+        "order": 16,
+        "width": 7,
+        "height": 6,
+        "format": "<div>\n  <h4>🖼 Captured Snapshot</h4>\n  <img ng-if=\"msg.payload\" style=\"width:100%; border:2px solid black;\" ng-src=\"data:image/jpeg;base64,{{msg.payload}}\" />\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": false,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1150,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "939dc32cc65e8fb2",
+        "type": "link in",
+        "z": "e5ea7423b886c1a5",
+        "g": "369148baa013f499",
+        "name": "link in 1",
+        "links": [
+            "1cba2b79dfb03836"
+        ],
+        "x": 725,
+        "y": 940,
+        "wires": [
+            [
+                "9cbc9638ac35b0eb"
+            ]
+        ]
+    },
+    {
+        "id": "76c51afaec756e98",
+        "type": "ui_template",
+        "z": "e5ea7423b886c1a5",
+        "group": "a6dde8891f7be2c7",
+        "name": "",
+        "order": 14,
+        "width": 7,
+        "height": 1,
+        "format": "<div style=\"\n    background-color: #e3f2fd;\n    border: 1px solid #2196f3;\n    padding: 6px 8px;\n    border-radius: 6px;\n    text-align: center;\n    font-size: 16px;\n    font-weight: 500;\n    color: #0d47a1;\n    font-family: 'Segoe UI', sans-serif;\n\">\n    ⏰ Catch Time: {{msg.payload}}\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1380,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9af50a7b3ad80d51",
+        "type": "ui_template",
+        "z": "e5ea7423b886c1a5",
+        "group": "a6dde8891f7be2c7",
+        "name": "",
+        "order": 4,
+        "width": 7,
+        "height": 1,
+        "format": "<div id=\"timeBox\" style=\"\n    background-color: #e3f2fd;\n    border: 1px solid #2196f3;\n    padding: 6px 10px;\n    border-radius: 6px;\n    text-align: center;\n    font-size: 16px;\n    font-weight: 500;\n    color: #0d47a1;\n    font-family: 'Segoe UI', sans-serif;\n\">\n    ⏰ Current Time: <span id=\"current-time\"></span>\n</div>\n\n<script>\n    function updateTime() {\n  const now = new Date();\n  const options = {\n    year: \"numeric\", month: \"long\", day: \"2-digit\",\n    hour: \"2-digit\", minute: \"2-digit\", second: \"2-digit\",\n    hour12: false\n  };\n  const formatted = now.toLocaleString(\"en-US\", options).replace(\",\", \" —\");\n  document.getElementById(\"current-time\").innerText = formatted;\n}\nsetInterval(updateTime, 1000);\nupdateTime(); // run once on load\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 860,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cda926ef81a7b995",
+        "type": "ui_template",
+        "z": "e5ea7423b886c1a5",
+        "g": "369148baa013f499",
+        "group": "a6dde8891f7be2c7",
+        "name": "",
+        "order": 23,
+        "width": 0,
+        "height": 0,
+        "format": "<div\n    style=\"background:#f0f7ff; padding:10px; border:1px solid #2196f3; border-radius:6px; font-size:14px; color:#0d47a1;\">\n    <strong>📋 Snapshot Times:</strong>\n    <ul>\n        <li ng-repeat=\"t in msg.snapshotTimes\">{{t}}</li>\n    </ul>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1100,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a4d24ae80e938566",
+        "type": "inject",
+        "z": "e5ea7423b886c1a5",
+        "g": "369148baa013f499",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 660,
+        "y": 900,
+        "wires": [
+            [
+                "9cbc9638ac35b0eb"
+            ]
+        ]
+    },
+    {
+        "id": "2ef6992d2f6fcd50",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 3,
+        "width": 5,
+        "height": 1
+    },
+    {
+        "id": "3c5e810741e0fcbf",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 5,
+        "width": 16,
+        "height": 1
+    },
+    {
+        "id": "1c00be5aeef57530",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 8,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "9f075e82255e584e",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 10,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "a061c2ae11d0a85f",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 11,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "eebe64c177c7ed2a",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 12,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "c620d3a718991ff7",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 13,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "b63a0cb5684c7218",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 15,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "a5999b18163a5ac2",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 17,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "8c5ebf06db4561ef",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 18,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "eebca1764555b435",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 19,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "01dd71c6af6311f0",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 20,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "fc0e4d774c5040dd",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 21,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "cd4edd650f9971d9",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 22,
+        "width": 9,
+        "height": 1
+    },
+    {
+        "id": "b9f905e470a4ed16",
+        "type": "ui_spacer",
+        "z": "e5ea7423b886c1a5",
+        "name": "spacer",
+        "group": "a6dde8891f7be2c7",
+        "order": 23,
+        "width": 9,
+        "height": 1
+    },
+    {
+        "id": "107bf69389d2f738",
+        "type": "mqtt-broker",
+        "name": "AzureMqttBroker",
+        "broker": "20.55.16.155",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "a6dde8891f7be2c7",
+        "type": "ui_group",
+        "name": "Status",
+        "tab": "1cc8fe83afb659c4",
+        "order": 1,
+        "disp": true,
+        "width": 23,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "mqtt_broker_config",
+        "type": "mqtt-broker",
+        "name": "Azure MQTT Broker",
+        "broker": "20.55.16.155",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "1cc8fe83afb659c4",
+        "type": "ui_tab",
+        "name": "MCU Dashboard",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
