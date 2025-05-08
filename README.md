@@ -15,7 +15,7 @@ https://youtube.com/shorts/kJqO3oqh_wA
 
 ## 2. Project Summary
 
-### 1. Device Description
+###  Device Description
 * **What it is** – A battery‑powered smart‑door add‑on that live‑streams video, senses motion and pushes e‑mail alerts. A Node‑RED dashboard shows status, hosts an emergency button and triggers OTA firmware updates.  
 * **Why we built it** – Dorm rooms lack intercoms; package theft and unwanted visitors are common. We wanted a retrofit solution—no drilling, no paid cloud.
 * **Internet integration** – Events publish over MQTT to an Azure VM running Node‑RED. From the dashboard you can:
@@ -26,7 +26,7 @@ https://youtube.com/shorts/kJqO3oqh_wA
 
 ---
 
-### 2. Device Functionality
+###  Device Functionality
 
 | Element | Details |
 | ------- | ------- |
@@ -40,7 +40,7 @@ https://youtube.com/shorts/kJqO3oqh_wA
 
 ---
 
-### 3. Challenges
+###  Challenges
 
 | # | Issue | Mitigation / Result |
 |---|-------|---------------------|
@@ -51,7 +51,7 @@ https://youtube.com/shorts/kJqO3oqh_wA
 
 ---
 
-### 4. Prototype Learnings
+###  Prototype Learnings
 
 - **Measure first, design second** – RAM/flash profiling before adding features prevented late‑stage re‑writes.  
 - **Off‑board UI wins** – pushing logic to Node‑RED let us tweak alert thresholds and e‑mail text without reflashing firmware.  
@@ -59,7 +59,7 @@ https://youtube.com/shorts/kJqO3oqh_wA
 
 ---
 
-### 5. Next Steps & Takeaways
+###  Next Steps & Takeaways
 
 #### Next Steps
 
@@ -88,6 +88,14 @@ https://youtube.com/shorts/kJqO3oqh_wA
 * **Cheap parts ≠ free** – a \$2 PIR saved \$4 but cost latency; breadboard sensors _before_ BoM lock.  
 * **Node‑RED as cloud glue** – visual flows let us bolt on e‑mail, OTA and dashboard widgets without touching firmware.  
 * **OTA is priceless** – Wi‑Fi OTAF‑U let us fix bugs and add features without ever opening the enclosure.
+
+---
+
+###  Project Links
+
+Node-RED instance: http://20.55.16.155:1880/ui
+
+Altium 365: https://upenn-eselabs.365.altium.com/designs/AF1AAD73-CCAB-4D4B-BED5-52957B402218?activeDocumentId=Top20Level.SchDoc(1)&variant=%5BNo+Variations%5D&activeView=SCH&location=%5B1,97.61,18.77,22.79%5D#design
 
 ---
 
