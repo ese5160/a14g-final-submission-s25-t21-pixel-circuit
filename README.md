@@ -16,6 +16,7 @@ https://youtube.com/shorts/kJqO3oqh_wA
 ## 2. Project Summary
 
 ###  Device Description
+
 * **What it is** – A battery‑powered smart‑door add‑on that live‑streams video, senses motion and pushes e‑mail alerts. A Node‑RED dashboard shows status, hosts an emergency button and triggers OTA firmware updates.  
 * **Why we built it** – Dorm rooms lack intercoms; package theft and unwanted visitors are common. We wanted a retrofit solution—no drilling, no paid cloud.
 * **Internet integration** – Events publish over MQTT to an Azure VM running Node‑RED. From the dashboard you can:
@@ -36,7 +37,7 @@ https://youtube.com/shorts/kJqO3oqh_wA
 | **Snapshot & mail** | Each `attention` sends JPEG + timestamp to user‑supplied e‑mail via Node‑RED SMTP. |
 | **OTA update** | Dashboard buttons **GOLDEN IMAGE** / **OTA UPDATE (FW)** push a firmware URL; board downloads and self‑flashes. |
 
-![1.2](https://github.com/user-attachments/assets/6076e328-336d-4f9d-8df0-840ed20ad933)
+![1.2](https://github.com/user-attachments/assets/041a1774-bdcf-436c-9d53-079da5d34b9d)
 
 ---
 
@@ -127,12 +128,45 @@ Altium 365: [https://upenn-eselabs.365.altium.com/designs/AF1AAD73-CCAB-4D4B-BED
 
 ## 4. Project Photos & Screenshots
 
-![1](https://github.com/user-attachments/assets/c5e2b057-9cc8-48d4-8ce6-dd802e0b4e99)
+### Final project, including any casework or interfacing elements that make up the full project
 
-![2](https://github.com/user-attachments/assets/e7549c49-9389-4be4-8865-2ed3f04d349b)
+![1](https://github.com/user-attachments/assets/a1ce804e-ad0c-412c-8596-9393d25665dc)
 
-![3](https://github.com/user-attachments/assets/408e9619-36ab-4047-997a-8ee7dc5547fd)
+### The standalone PCBA, top
 
+![2](https://github.com/user-attachments/assets/9ea0ce55-8db3-4d01-a846-1ae562fa1a7e)
+
+### The standalone PCBA, bottom
+
+![3](https://github.com/user-attachments/assets/663e0a9a-58ee-44c1-b477-f69e6e45662e)
+
+### Thermal camera images while the board is running under load
+
+![4](https://github.com/user-attachments/assets/879712b7-0bb4-4ab0-8274-fd57b653cfb3)
+
+### The Altium Board design in 2D view
+
+![5](https://github.com/user-attachments/assets/5fcee5cd-0386-45ad-9c55-afe58563d6a5)
+
+### The Altium Board design in 3D view
+
+![6](https://github.com/user-attachments/assets/8b6a5885-1b30-4e48-8821-32642b067cef)
+
+### Node-RED dashboard
+
+![7](https://github.com/user-attachments/assets/3d77adbb-3565-4aa4-907d-e06d66b21bc1)
+
+![8](https://github.com/user-attachments/assets/cbaaecd0-cf18-4f6e-9756-0d85dd1d8b37)
+
+### Node-RED backend
+
+![9](https://github.com/user-attachments/assets/4bb5520c-dec3-4cf9-9ca9-56336c8f7dc7)
+
+![10](https://github.com/user-attachments/assets/1b322441-2be6-4c77-9e6f-c25eb60dea6a)
+
+### Block diagram of your system
+
+![11](https://github.com/user-attachments/assets/111a50f1-30c5-44fc-a5d2-f59f5df9ca6e)
 
 ---
 
